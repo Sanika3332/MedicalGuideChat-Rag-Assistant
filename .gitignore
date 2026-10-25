@@ -6,3 +6,8 @@ db.sqlite3
 .vscode/
 .idea/
 data/sources/*.pdf
+data/sources/*.txt
+data/old_pdfs/
+data/sources/*.txt
+diagnose.py
+check_pdf.py
