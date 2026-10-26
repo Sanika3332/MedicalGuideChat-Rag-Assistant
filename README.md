@@ -25,7 +25,7 @@ A health-information API that answers questions only from WHO fact sheets, with 
 
 ## Results
 
-- Retrieval: top-1 accuracy 10/10 and hit rate (top 4) 10/10 on a 10-question set I wrote from the documents.
+- Retrieval: top-1 accuracy 10/10 and hit rate (top 4) 10/10 on a a 10-question set (see evaluate.py) I wrote from the documents.
 - Off-topic rejection: 4/4 at threshold 0.6 (relevant questions scored 0.2-0.4, off-topic 0.88-0.98).
 - The sets are small, so treat this as a sanity check, not a benchmark.
 
