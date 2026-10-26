@@ -20,3 +20,14 @@ def main():
 
 if __name__ == '__main__':
     main()
+from rag.retriever import retrieve
+
+tests = [
+    "symptoms of dengue",
+    "how to prevent type 2 diabetes",
+    "what causes high blood pressure",
+    "who won the cricket world cup",
+    "best pizza recipe",
+]
+for q in tests:
+    print(q, "->", round(retrieve(q, 1)[0]["distance"], 3))

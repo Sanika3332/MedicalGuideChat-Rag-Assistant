@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from rag.generator import LLMError
+from rag.service import answer_question
 
 from .models import Conversation, Message
 from .serializers import (
@@ -53,11 +55,20 @@ class MessageListCreateView(generics.GenericAPIView):
         user_message = serializer.save(
             conversation=conversation, role=Message.Role.USER
         )
+
+        try:
+            answer, sources = answer_question(user_message.content)
+        except LLMError:
+            return Response(
+                {"detail": "The answer service is unavailable right now. Please try again."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
         assistant_message = Message.objects.create(
             conversation=conversation,
             role=Message.Role.ASSISTANT,
-            content="This is a placeholder reply. The AI answer is coming soon.",
-            sources=[],
+            content=answer,
+            sources=sources,
         )
         return Response(
             {
